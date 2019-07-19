@@ -30,9 +30,8 @@ async function main() {
         }
 
         try {
-            console.log(contents);
             parsed = JSON.parse(contents);
-            console.log('Number of nodes:', parsed.numOfNodes);
+            console.log('Number of nodes', parsed.nodes.length);
         } catch (error) {
             console.info('Parsing file content to JSON failed');
             process.exit(0);

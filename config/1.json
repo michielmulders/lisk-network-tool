@@ -1,3 +1,29 @@
 {
-    "numOfNodes": 100
+    "version": "1.0.0",
+    "metal": "local_source",
+    "explorer": true,
+    "nodes": [
+        {
+            "target": "../lisk-core/dist/index.js",
+            "overrideConfig": "../../config.json",
+            "overrides": {
+                "modules": {
+                    "network": {
+                        "http_port": 3000
+                    }
+                }
+            }
+        },
+        {
+            "target": "../lisk-core/dist/index.js",
+            "overrideConfig": "../../config.json",
+            "overrides": {
+                "modules": {
+                    "network": {
+                        "http_port": 3001
+                    }
+                }
+            }
+        }
+    ]
 }
