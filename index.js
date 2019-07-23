@@ -1,5 +1,5 @@
 const program = require('commander');
-const fs = require('fs');
+const fs = require('fs').promises;
 const sh = require('./helpers/shell');
  
 async function main() {
@@ -13,7 +13,7 @@ async function main() {
     /*
     * Global Vars
     */
-    let parsed = {};
+    let parsedConf = {};
 
     /*
     * Reading Config File
@@ -23,28 +23,19 @@ async function main() {
         process.exit(0);
     }
 
-    fs.readFile(program.config, 'utf8', function(err, contents) {
-        if (err) {
-            console.info('Reading file failed');
-            process.exit(0);
-        }
-
-        try {
-            parsed = JSON.parse(contents);
-            console.log('Number of nodes', parsed.nodes.length);
-        } catch (error) {
-            console.info('Parsing file content to JSON failed');
-            process.exit(0);
-        }
-    });
-
-    /*
-    * Placeholder for checks:
-    * Postgres available? Can we create/drop DB?
-    */
+    try {
+        const contents = await fs.readFile(program.config, 'utf8');
+        parsedConf = JSON.parse(contents);
+        console.log('Number of nodes', parsedConf.nodes.length);
+    } catch (error) {
+        console.log(error);
+        console.info('Reading or parsing file content to JSON failed');
+        process.exit(0);
+    }
 
     /*
      * Drop & Create Database
+     * Fails if Postgres is not installed
      * Example: let { stdout } = await sh('ls -l');
      */
     try {
@@ -52,6 +43,26 @@ async function main() {
     } catch (err) {
         console.log('something wrong', err);
     }
+
+    /*
+     * Start instance
+     */
+    console.log(parsedConf);
+    await sh(`node ${parsedConf.nodes[0].target} -c ${parsedConf.nodes[0].overrideConfig} | npx bunyan -o short`);
+    console.log('Node running');
 }
 
 main();
+setTimeout(function () {
+    console.log('Node has started');
+}, 10000);
+
+
+// Removed overrideConfig from 1.json config file
+/* "overrides": {
+    "modules": {
+        "network": {
+            "http_port": 3001
+        }
+    }
+} */

@@ -1,0 +1,29 @@
+{
+	"components": {
+		"logger": {
+			"logFileName": "logs/devnet/lisk01.log"
+		},
+		"storage": {
+			"logFileName": "logs/devnet/lisk01_db.log"
+		}
+	},
+	"modules": {
+		"http_api": {
+			"access": {
+				"public": true
+			}
+		},
+		"network": {
+			"http_port": 3001
+		}
+	},
+	"network": {
+		"seedPeers": [
+			{
+				"ip": "127.0.0.1",
+				"wsPort": 3000
+			}
+		],
+		"wsPort": 3000
+	}
+}

@@ -5,25 +5,11 @@
     "nodes": [
         {
             "target": "../lisk-core/dist/index.js",
-            "overrideConfig": "../../config.json",
-            "overrides": {
-                "modules": {
-                    "network": {
-                        "http_port": 3000
-                    }
-                }
-            }
+            "overrideConfig": "config/node0.json"
         },
         {
             "target": "../lisk-core/dist/index.js",
-            "overrideConfig": "../../config.json",
-            "overrides": {
-                "modules": {
-                    "network": {
-                        "http_port": 3001
-                    }
-                }
-            }
+            "overrideConfig": "config/node1.json"
         }
     ]
 }

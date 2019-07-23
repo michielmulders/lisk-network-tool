@@ -1,0 +1,18 @@
+[  
+    {
+      "uid": "lisk-01",
+      "append": true,
+      "watch": true,
+      "script": "index.js",
+      "sourceDir": "/Users/michiel.mulders/lisk/lisk-core/dist",
+      "args": ["--http-port", "3002"]
+    },
+    {
+        "uid": "lisk-02",
+        "append": true,
+        "watch": true,
+        "script": "index.js",
+        "sourceDir": "/Users/michiel.mulders/lisk/lisk-core/dist",
+        "args": ["--http-port", "3003"]
+    }
+]
